@@ -1,5 +1,7 @@
 use std::{fs::{OpenOptions}, io::{Write}};
 use rocket::serde::{Deserialize, json::Json};
+use std::io::BufReader;
+use std::io::BufRead;
 #[macro_use] extern crate rocket;
 
 #[get("/")]
@@ -9,7 +11,7 @@ fn index() -> &'static str {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![index, add_task])
+    rocket::build().mount("/", routes![index, add_task, read_tasks])
 }
 
 #[derive(Deserialize)]
